@@ -7,25 +7,57 @@ namespace BezierCurveTool
     [ExecuteAlways][Serializable]
     public class BezierCurve : MonoBehaviour
     {
-        public List<Arc> arcs = new List<Arc>();
-        
+        public List<Point> arcs = new List<Point>();
         private Vector3 previousTransformPosition;
 
         private void OnDrawGizmosSelected()
         {
-            foreach (var arc in arcs)
+            for (var i = 0; i < arcs.Count - 1; i++)
             {
-                Gizmos.color = Color.green;
-                Gizmos.DrawSphere(arc.PointA, 0.1f);
+                if (arcs[i].isFirstPoint && arcs.Count == 2)
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawSphere(arcs[i].position, 0.1f);
             
-                Gizmos.color = Color.green;
-                Gizmos.DrawSphere(arc.PointB, 0.1f);
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawSphere(arcs[i + 1].position, 0.1f);
             
-                Gizmos.color = Color.magenta;
-                Gizmos.DrawSphere(arc.TangentA, 0.1f);
+                    Gizmos.color = Color.magenta;
+                    Gizmos.DrawSphere(arcs[i].handles[0], 0.1f);
             
-                Gizmos.color = Color.magenta;
-                Gizmos.DrawSphere(arc.TangentB, 0.1f);
+                    Gizmos.color = Color.magenta;
+                    Gizmos.DrawSphere(arcs[i + 1].handles[0], 0.1f);
+                }
+
+                if (arcs[i].isFirstPoint && arcs.Count > 2)
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawSphere(arcs[i].position, 0.1f);
+            
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawSphere(arcs[i + 1].position, 0.1f);
+            
+                    Gizmos.color = Color.magenta;
+                    Gizmos.DrawSphere(arcs[i].handles[0], 0.1f);
+            
+                    Gizmos.color = Color.magenta;
+                    Gizmos.DrawSphere(arcs[i + 1].handles[0], 0.1f);
+                }
+
+                if (!arcs[i].isFirstPoint && arcs.Count > 2)
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawSphere(arcs[i].position, 0.1f);
+            
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawSphere(arcs[i + 1].position, 0.1f);
+            
+                    Gizmos.color = Color.magenta;
+                    Gizmos.DrawSphere(arcs[i].handles[1], 0.1f);
+            
+                    Gizmos.color = Color.magenta;
+                    Gizmos.DrawSphere(arcs[i + 1].handles[0], 0.1f);
+                }
             }
         }
 
@@ -37,10 +69,9 @@ namespace BezierCurveTool
 
             foreach (var arc in arcs)
             {
-                arc.PointA += bias;
-                arc.PointB += bias;
-                arc.TangentA += bias;
-                arc.TangentB += bias;
+                arc.position += bias;
+                for (var i = 0; i < arc.handles.Count; i++)
+                    arc.handles[i] += bias;
             }
             
             previousTransformPosition = transform.position;

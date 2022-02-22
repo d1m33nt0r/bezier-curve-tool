@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace BezierCurveTool.Editor
@@ -10,62 +11,129 @@ namespace BezierCurveTool.Editor
         [MenuItem("GameObject/Create Other/Bezier Curve")]
         static void CreateBezierCurve()
         {
-            var gameObject = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
-            gameObject.name = "Bezier Curve";
-            gameObject.AddComponent<BezierCurve>();
-            gameObject.GetComponent<BezierCurve>().arcs.Add(new Arc
+            var gameObject = new GameObject
             {
-                PointA = new Vector3(-1, 0, 0),
-                PointB = new Vector3(1, 0, 0),
-                TangentA = new Vector3(-0.5f, 0, 1),
-                TangentB = new Vector3(0.5f, 0, -1)
-            });
+                name = "Bezier Curve", 
+                transform = { position = Vector3.zero }
+            };
+            gameObject.AddComponent<BezierCurve>();
+            gameObject.GetComponent<BezierCurve>().arcs.Add(new Point(true, false, 
+                new Vector3(-1, 0, 0), new List<Vector3>{new Vector3(-0.5f, 0, 1)}, true));
+            gameObject.GetComponent<BezierCurve>().arcs.Add(new Point(false, true, 
+                new Vector3(1, 0, 0), new List<Vector3>{new Vector3(0.5f, 0, -1)}, true));
         }
         
         public override void OnInspectorGUI()
         {
+            
             var script = (BezierCurve) target;
 
             if (script.arcs.Count == 0) EditorGUILayout.LabelField("Points is empty");
-            
+/*
+            var i = 0;
             foreach (var arc in script.arcs)
             {
-                arc.PointA = EditorGUILayout.Vector3Field("Point_A", arc.PointA);
-                arc.PointB = EditorGUILayout.Vector3Field("Point_B", arc.PointB);
-                arc.TangentA = EditorGUILayout.Vector3Field("Tangent_A", arc.TangentA);
-                arc.TangentB = EditorGUILayout.Vector3Field("Tangent_B", arc.TangentB);
-            }
-
-            if (GUILayout.Button("Create Arc"))
-            {
-                if (script.arcs.Count > 0)
+                if (arc.isFirstPoint)
                 {
-                    var last = script.arcs[script.arcs.Count - 1];
-                    
-                    script.arcs.Add(new Arc
-                    {
-                        PointA = new Vector3(last.PointB.x, last.PointB.y, last.PointB.z),
-                        PointB = new Vector3(last.PointB.x + 2, last.PointB.y, last.PointB.z),
-                        TangentA = new Vector3(last.TangentA.x + 2, last.TangentA.y, last.TangentA.z),
-                        TangentB = new Vector3(last.TangentB.x + 2, last.TangentB.y, last.TangentB.z)
-                    });
+                    arc.position = EditorGUILayout.Vector3Field("Point" + i, arc.position);
+                    arc.handles[0] = EditorGUILayout.Vector3Field("Handle", arc.handles[0]);
                 }
-            }
+
+                if (arc.isLastPoint)
+                {
+                    arc.position = EditorGUILayout.Vector3Field("Point" + i, arc.position);
+                    arc.handles[0] = EditorGUILayout.Vector3Field("Handle", arc.handles[0]);
+                }
+
+                if (!arc.isFirstPoint && !arc.isLastPoint)
+                {
+                    arc.position = EditorGUILayout.Vector3Field("Point" + i, arc.position);
+                    arc.handles[0] = EditorGUILayout.Vector3Field("1 handle", arc.handles[0]);
+                    arc.handles[1] = EditorGUILayout.Vector3Field("2 handle", arc.handles[1]);
+                }
+
+                i++;
+            }*/
+
+            /*if (GUILayout.Button("Add point"))
+            {
+                var last = script.arcs[script.arcs.Count - 1];
+                if (last.isUpArc)
+                {
+                    script.arcs.Add(new Point(false, true, 
+                        new Vector3(last.position.x + 2, last.position.y, last.position.z), 
+                        new List<Vector3>{last.handles}, !last.isUpArc));
+                }
+                else
+                {
+                    
+                }
+                
+                foreach (var point in script.arcs)
+                {
+                    if (point.isFirstPoint) continue;
+                    if (point.isLastPoint)
+                    {
+                        
+                    }
+                }
+            }*/
         }
         
         void OnSceneGUI() 
         {
             var script = (BezierCurve) target;
-
-            foreach (var arc in script.arcs)
-            {
-                arc.PointA = Handles.PositionHandle(arc.PointA, Quaternion.identity);
-                arc.PointB = Handles.PositionHandle(arc.PointB, Quaternion.identity);
-                arc.TangentA = Handles.PositionHandle(arc.TangentA, Quaternion.identity);
-                arc.TangentB = Handles.PositionHandle(arc.TangentB, Quaternion.identity);
+            var points = script.arcs;
             
-                Handles.DrawBezier(arc.PointA, arc.PointB, arc.TangentA, 
-                    arc.TangentB, Color.red, null, 5);
+            for (var i = 0; i < points.Count - 1; i++)
+            {
+                if (points[i].isFirstPoint && points.Count == 2)
+                {
+                    Handles.PositionHandle(points[i].position, Quaternion.identity);
+                    Handles.PositionHandle(points[i].handles[0], Quaternion.identity);
+                    Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
+                    Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
+                    break;
+                }
+
+                if (points[i].isFirstPoint && points.Count != 2)
+                {
+                    Handles.PositionHandle(points[i].position, Quaternion.identity);
+                    Handles.PositionHandle(points[i].handles[0], Quaternion.identity);
+                    Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
+                    Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
+                }
+                
+                if (!points[i].isFirstPoint && points.Count != 2)
+                {
+                    Handles.PositionHandle(points[i].position, Quaternion.identity);
+                    Handles.PositionHandle(points[i].handles[1], Quaternion.identity);
+                    Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
+                    Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
+                }
+            }
+            
+            for (int i = 0; i < points.Count - 1; i++)
+            {
+                if (points[i].isFirstPoint && points.Count == 2)
+                {
+                    Handles.DrawBezier(points[i].position, points[i + 1].position, points[i].handles[0], 
+                        points[i + 1].handles[0], Color.red, null, 5);
+                        
+                    break;
+                }
+                    
+                if (points[i].isFirstPoint && points.Count != 2)
+                {
+                    Handles.DrawBezier(points[i].position, points[i + 1].position, points[i].handles[0], 
+                        points[i + 1].handles[0], Color.red, null, 5);
+                }
+                    
+                if (!points[i].isFirstPoint && points.Count != 2)
+                {
+                    Handles.DrawBezier(points[i].position, points[i + 1].position, points[i].handles[1], 
+                        points[i + 1].handles[0], Color.red, null, 5);
+                }
             }
         }
     }

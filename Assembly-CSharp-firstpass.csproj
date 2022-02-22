@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Plugins\BezierCurveTool\BezierCurve.cs" />
-     <Compile Include="Assets\Plugins\BezierCurveTool\Arc.cs" />
+     <Compile Include="Assets\Plugins\BezierCurveTool\Point.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
