@@ -47,49 +47,32 @@ namespace BezierCurveTool.Editor
             
             for (var i = 0; i < points.Count - 1; i++)
             {
-                if (points[i].isFirstPoint && points.Count == 2)
+                if (points[i].isFirstPoint)
                 {
-                    Handles.PositionHandle(points[i].position, Quaternion.identity);
-                    Handles.PositionHandle(points[i].handles[0], Quaternion.identity);
-                    Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
-                    Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
-                    break;
+                    points[i].position = Handles.PositionHandle(points[i].position, Quaternion.identity);
+                    points[i].handles[0] = Handles.PositionHandle(points[i].handles[0], Quaternion.identity);
+                    points[i + 1].position = Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
+                    points[i + 1].handles[0] = Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
                 }
 
-                if (points[i].isFirstPoint && points.Count != 2)
+                if (!points[i].isFirstPoint)
                 {
-                    Handles.PositionHandle(points[i].position, Quaternion.identity);
-                    Handles.PositionHandle(points[i].handles[0], Quaternion.identity);
-                    Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
-                    Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
-                }
-                
-                if (!points[i].isFirstPoint && points.Count != 2)
-                {
-                    Handles.PositionHandle(points[i].position, Quaternion.identity);
-                    Handles.PositionHandle(points[i].handles[1], Quaternion.identity);
-                    Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
-                    Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
+                    points[i].position = Handles.PositionHandle(points[i].position, Quaternion.identity);
+                    points[i].handles[1] = Handles.PositionHandle(points[i].handles[1], Quaternion.identity);
+                    points[i + 1].position = Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
+                    points[i + 1].handles[0] = Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
                 }
             }
             
             for (int i = 0; i < points.Count - 1; i++)
             {
-                if (points[i].isFirstPoint && points.Count == 2)
+                if (points[i].isFirstPoint)
                 {
-                    Handles.DrawBezier(points[i].position, points[i + 1].position, points[i].handles[0], 
-                        points[i + 1].handles[0], Color.red, null, 5);
-                        
-                    break;
-                }
-                    
-                if (points[i].isFirstPoint && points.Count != 2)
-                {
-                    Handles.DrawBezier(points[i].position, points[i + 1].position, points[i].handles[0], 
+                    Handles.DrawBezier(points[i].position, points[i + 1].position, points[i].handles[0],
                         points[i + 1].handles[0], Color.red, null, 5);
                 }
-                    
-                if (!points[i].isFirstPoint && points.Count != 2)
+
+                if (!points[i].isFirstPoint)
                 {
                     Handles.DrawBezier(points[i].position, points[i + 1].position, points[i].handles[1], 
                         points[i + 1].handles[0], Color.red, null, 5);
