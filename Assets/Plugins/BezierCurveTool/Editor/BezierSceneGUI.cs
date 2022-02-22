@@ -25,59 +25,19 @@ namespace BezierCurveTool.Editor
         
         public override void OnInspectorGUI()
         {
-            
             var script = (BezierCurve) target;
 
             if (script.arcs.Count == 0) EditorGUILayout.LabelField("Points is empty");
-/*
-            var i = 0;
-            foreach (var arc in script.arcs)
-            {
-                if (arc.isFirstPoint)
-                {
-                    arc.position = EditorGUILayout.Vector3Field("Point" + i, arc.position);
-                    arc.handles[0] = EditorGUILayout.Vector3Field("Handle", arc.handles[0]);
-                }
 
-                if (arc.isLastPoint)
-                {
-                    arc.position = EditorGUILayout.Vector3Field("Point" + i, arc.position);
-                    arc.handles[0] = EditorGUILayout.Vector3Field("Handle", arc.handles[0]);
-                }
-
-                if (!arc.isFirstPoint && !arc.isLastPoint)
-                {
-                    arc.position = EditorGUILayout.Vector3Field("Point" + i, arc.position);
-                    arc.handles[0] = EditorGUILayout.Vector3Field("1 handle", arc.handles[0]);
-                    arc.handles[1] = EditorGUILayout.Vector3Field("2 handle", arc.handles[1]);
-                }
-
-                i++;
-            }*/
-
-            /*if (GUILayout.Button("Add point"))
+            if (GUILayout.Button("Add point"))
             {
                 var last = script.arcs[script.arcs.Count - 1];
-                if (last.isUpArc)
-                {
-                    script.arcs.Add(new Point(false, true, 
+                last.handles.Add(new Vector3(last.handles[0].x + 1, last.handles[0].y, last.handles[0].z * -1));
+                last.isLastPoint = false;
+                script.arcs.Add(new Point(false, true, 
                         new Vector3(last.position.x + 2, last.position.y, last.position.z), 
-                        new List<Vector3>{last.handles}, !last.isUpArc));
-                }
-                else
-                {
-                    
-                }
-                
-                foreach (var point in script.arcs)
-                {
-                    if (point.isFirstPoint) continue;
-                    if (point.isLastPoint)
-                    {
-                        
-                    }
-                }
-            }*/
+                        new List<Vector3>{new Vector3(last.handles[1].x + 1, last.handles[1].y, last.handles[1].z)}, !last.isUpArc));
+            }
         }
         
         void OnSceneGUI() 
