@@ -123,36 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &553911683
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 553911684}
-  m_Layer: 0
-  m_Name: New Game Object
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &553911684
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553911683}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +206,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1301339523
+--- !u!1 &1617523758
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,8 +214,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1301339525}
-  - component: {fileID: 1301339524}
+  - component: {fileID: 1617523760}
+  - component: {fileID: 1617523759}
   m_Layer: 0
   m_Name: Bezier Curve
   m_TagString: Untagged
@@ -253,34 +223,52 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1301339524
+--- !u!114 &1617523759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301339523}
+  m_GameObject: {fileID: 1617523758}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6314f3f7c1ba4fd4ab66ad0d317c56e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   arcs:
-  - PointA: {x: -6.209302, y: 0.89912724, z: 1.0972537}
-    PointB: {x: 1, y: 0, z: 0}
-    TangentA: {x: -0.5, y: 0, z: 1}
-    TangentB: {x: 0.5597588, y: 0, z: -1.2428205}
---- !u!4 &1301339525
+  - isFirstPoint: 1
+    position: {x: -2.6456695, y: 0, z: -1.7670411}
+    handles:
+    - {x: -2.8943453, y: 0, z: 2.159399}
+    isUpArc: 1
+  - isFirstPoint: 0
+    position: {x: 1.1044405, y: 0, z: 0.2837651}
+    handles:
+    - {x: 1.4972413, y: 0, z: -0.9124649}
+    - {x: 0.19739532, y: 0, z: 3.1003985}
+    isUpArc: 1
+  - isFirstPoint: 0
+    position: {x: 2.3600013, y: 0, z: -0.03}
+    handles:
+    - {x: 2.4280183, y: 0, z: 2.7772076}
+    - {x: 2.2185762, y: 0, z: -2.2852423}
+    isUpArc: 0
+  - isFirstPoint: 0
+    position: {x: 4.3600006, y: 0, z: -0.03}
+    handles:
+    - {x: 3.6322548, y: 0, z: -2.3731575}
+    isUpArc: 1
+--- !u!4 &1617523760
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301339523}
+  m_GameObject: {fileID: 1617523758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.64, y: 0, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

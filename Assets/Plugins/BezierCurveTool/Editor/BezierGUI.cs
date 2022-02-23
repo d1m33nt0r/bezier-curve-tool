@@ -6,7 +6,7 @@ namespace BezierCurveTool.Editor
 {
    
     [CustomEditor(typeof(BezierCurve))]
-    public class BezierSceneGUI : UnityEditor.Editor 
+    public class BezierGUI : UnityEditor.Editor 
     {
         [MenuItem("GameObject/Create Other/Bezier Curve")]
         static void CreateBezierCurve()
