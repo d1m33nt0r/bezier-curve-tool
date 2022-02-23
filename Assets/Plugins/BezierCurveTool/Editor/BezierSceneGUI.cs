@@ -51,16 +51,20 @@ namespace BezierCurveTool.Editor
                 {
                     points[i].position = Handles.PositionHandle(points[i].position, Quaternion.identity);
                     points[i].handles[0] = Handles.PositionHandle(points[i].handles[0], Quaternion.identity);
+                    Handles.DrawLine(points[i].position, points[i].handles[0]);
                     points[i + 1].position = Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
                     points[i + 1].handles[0] = Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
+                    Handles.DrawLine(points[i + 1].position, points[i + 1].handles[0]);
                 }
 
                 if (!points[i].isFirstPoint)
                 {
                     points[i].position = Handles.PositionHandle(points[i].position, Quaternion.identity);
                     points[i].handles[1] = Handles.PositionHandle(points[i].handles[1], Quaternion.identity);
+                    Handles.DrawLine(points[i].position, points[i].handles[1]);
                     points[i + 1].position = Handles.PositionHandle(points[i + 1].position, Quaternion.identity);
                     points[i + 1].handles[0] = Handles.PositionHandle(points[i + 1].handles[0], Quaternion.identity);
+                    Handles.DrawLine(points[i + 1].position, points[i + 1].handles[0]);
                 }
             }
             
