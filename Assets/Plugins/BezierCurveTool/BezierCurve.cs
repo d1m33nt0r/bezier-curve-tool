@@ -14,7 +14,7 @@ namespace BezierCurveTool
         {
             for (var i = 0; i < arcs.Count - 1; i++)
             {
-                if (arcs[i].isFirstPoint && arcs.Count == 2)
+                if (arcs[i].isFirstPoint)
                 {
                     Gizmos.color = Color.green;
                     Gizmos.DrawSphere(arcs[i].position, 0.1f);
@@ -29,22 +29,7 @@ namespace BezierCurveTool
                     Gizmos.DrawSphere(arcs[i + 1].handles[0], 0.1f);
                 }
 
-                if (arcs[i].isFirstPoint && arcs.Count > 2)
-                {
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawSphere(arcs[i].position, 0.1f);
-            
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawSphere(arcs[i + 1].position, 0.1f);
-            
-                    Gizmos.color = Color.magenta;
-                    Gizmos.DrawSphere(arcs[i].handles[0], 0.1f);
-            
-                    Gizmos.color = Color.magenta;
-                    Gizmos.DrawSphere(arcs[i + 1].handles[0], 0.1f);
-                }
-
-                if (!arcs[i].isFirstPoint && arcs.Count > 2)
+                if (!arcs[i].isFirstPoint)
                 {
                     Gizmos.color = Color.green;
                     Gizmos.DrawSphere(arcs[i].position, 0.1f);

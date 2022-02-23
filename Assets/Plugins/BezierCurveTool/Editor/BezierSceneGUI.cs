@@ -17,9 +17,9 @@ namespace BezierCurveTool.Editor
                 transform = { position = Vector3.zero }
             };
             gameObject.AddComponent<BezierCurve>();
-            gameObject.GetComponent<BezierCurve>().arcs.Add(new Point(true, false, 
+            gameObject.GetComponent<BezierCurve>().arcs.Add(new Point(true, 
                 new Vector3(-1, 0, 0), new List<Vector3>{new Vector3(-0.5f, 0, 1)}, true));
-            gameObject.GetComponent<BezierCurve>().arcs.Add(new Point(false, true, 
+            gameObject.GetComponent<BezierCurve>().arcs.Add(new Point(false, 
                 new Vector3(1, 0, 0), new List<Vector3>{new Vector3(0.5f, 0, -1)}, true));
         }
         
@@ -33,8 +33,7 @@ namespace BezierCurveTool.Editor
             {
                 var last = script.arcs[script.arcs.Count - 1];
                 last.handles.Add(new Vector3(last.handles[0].x + 1, last.handles[0].y, last.handles[0].z * -1));
-                last.isLastPoint = false;
-                script.arcs.Add(new Point(false, true, 
+                script.arcs.Add(new Point(false, 
                         new Vector3(last.position.x + 2, last.position.y, last.position.z), 
                         new List<Vector3>{new Vector3(last.handles[1].x + 1, last.handles[1].y, last.handles[1].z)}, !last.isUpArc));
             }
